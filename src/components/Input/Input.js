@@ -7,7 +7,7 @@ const Input = ({ label, placeholder, onChangeText }) => {
         <View style={styles.container}>
             <Text style={styles.label}>{label}</Text>
             <View style={styles.input_container}>
-                <TextInput placeholder={placeholder} onChange={onChangeText} />
+                <TextInput placeholder={placeholder} onChangeText={onChangeText} />
             </View>
 
         </View>

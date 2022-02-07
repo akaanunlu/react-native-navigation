@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, Text, Alert } from 'react-native';
 import Input from '../components/Input'
 import Button from '../components/Button'
-const MemberSign = () => {
-    const [username, setUsername] = useState('');
-    const [userSurname, setUserSurname] = useState('');
-    const [userAge, setUserAge] = useState('');
-    const [userMail, setUserMail] = useState('');
+
+const MemberSign = ({ navigation }) => {
+    const [username, setUsername] = useState(null);
+    const [userSurname, setUserSurname] = useState(null);
+    const [userAge, setUserAge] = useState(null);
+    const [userMail, setUserMail] = useState(null);
 
     const handleSumbit = () => {
-        const user = { username, userSurname, userAge, userMail };
+        if (!username || !userSurname || !userAge || !userMail) {
+            Alert.alert("Fitness App", "Bilgiler Boş bırakılamaz!")
+        }
+        else {
+            const user = { username, userSurname, userAge, userMail };
+
+            navigation.navigate("MemberResult", { user })
+        }
+
     }
     return (
         <SafeAreaView>
@@ -17,7 +26,7 @@ const MemberSign = () => {
             <Input label="Üye Soyadı" placeholder="Üye soyadını giriniz.." onChangeText={setUserSurname} />
             <Input label="Üye Yaşı" placeholder="Üye Yaşını giriniz.." onChangeText={setUserAge} />
             <Input label="Üye E-posta" placeholder="Üye E-posta giriniz.." onChangeText={setUserMail} />
-            <Button text="Kaydı Tamamla" onPress={null} />
+            <Button text="Kaydı Tamamla" onPress={handleSumbit} />
         </SafeAreaView>
     )
 }
